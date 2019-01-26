@@ -24,12 +24,7 @@ RSpec.describe Project, type: :model do
   end
 
   it "does not allow duplicate project names per user" do
-    user = User.create(
-      first_name: "Alexander",
-      last_name:  "Levashov",
-      email:      "alevash1@gmail.com",
-      password:   "dotenv123"
-    )
+    user = FactoryBot.create(:user)
 
     user.projects.create(
       name: "Test Project"
@@ -44,23 +39,13 @@ RSpec.describe Project, type: :model do
   end
 
   it "allows two users to share a project name" do
-    user = User.create(
-      first_name: "Alexander",
-      last_name:  "Levashov",
-      email:      "alevash1@gmail.com",
-      password:   "dotenv123"
-    )
+    user = FactoryBot.create(:user)
 
     user.projects.create(
       name: "Test Project"
     )
 
-    other_user = User.create(
-      first_name: "Alexander",
-      last_name:  "Ivanov",
-      email:      "alevash2@gmail.com",
-      password:   "dotenv123"
-    )
+    other_user = FactoryBot.create(:user)
 
     other_project = other_user.projects.build(
       name: "Test Project"
